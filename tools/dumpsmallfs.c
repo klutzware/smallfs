@@ -3,7 +3,12 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
+#ifdef __APPLE__
+#include <machine/endian.h>
+#define be32toh ntohl
+#else
 #include <endian.h>
+#endif
 #include <string.h>
 
 int main(int argc,char **argv)

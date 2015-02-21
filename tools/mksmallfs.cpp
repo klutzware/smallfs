@@ -7,7 +7,13 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <string.h>
+#ifdef __APPLE__
+#include <unistd.h>
+#include <machine/endian.h>
+#define htobe32 htonl
+#else
 #include <endian.h>
+#endif
 
 struct fileinfo {
 	std::string name;
@@ -136,5 +142,5 @@ int main(int argc,char **argv)
 	}
 
 	close(fd);
-	printf("Packed %d files sucessfully\n",filestopack.size());
+	printf("Packed %d files sucessfully\n",(int)filestopack.size());
 }
